@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     UserDetailImplService userDetailServiceImpl;
     private static final String[] PUBLIC_POST_ENDPOINTS =
             {
-                    "/auth/**", "/users/**"
+                    "/auth/**", "/users/**","/upload/**"
             };
     private static final String[] PUBLIC_GET_ENDPOINTS =
             {
@@ -60,7 +60,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
+        log.info(request.getRequestURI());
+        log.info("is public request {}", isPublicEndpoint(request));
         if (isPublicEndpoint(request)) {
             filterChain.doFilter(request, response);
             return;
@@ -68,6 +69,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.info("Authorization header not found");
             jwtAuthenticationEntryPoint.commence(request, response,
                     new BadCredentialsException("Missing or malformed Authorization header"));
             return;

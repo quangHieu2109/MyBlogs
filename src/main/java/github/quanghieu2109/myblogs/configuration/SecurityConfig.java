@@ -63,7 +63,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll() // Cho phép tất cả yêu cầu POST đến PUBLIC_ENDPOINTS
                         .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
                         .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
-                        .requestMatchers("*").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
         ); // Tất cả các yêu cầu khác đều cần xác thực
         httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()));

@@ -1,6 +1,7 @@
 package github.quanghieu2109.myblogs.entity;
 
 import github.quanghieu2109.myblogs.enums.PostStatus;
+import github.quanghieu2109.myblogs.enums.PostVisibilities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +24,12 @@ public class Post {
     @Enumerated(EnumType.STRING)
     PostStatus status;
     @Enumerated(EnumType.STRING)
-    PostStatus visibility;
+    PostVisibilities visibility;
     @OneToMany
     List<Media> medias;
     @OneToMany
     List<Comment> comments;
+
 
 
 }

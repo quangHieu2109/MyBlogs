@@ -1,4 +1,4 @@
-package github.quanghieu2109.myblogs.dto.response.request;
+package github.quanghieu2109.myblogs.dto.request;
 
 import lombok.AccessLevel;
 import lombok.Data;

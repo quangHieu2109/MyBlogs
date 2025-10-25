@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -15,26 +16,32 @@ public class MessageProvider {
 
     @Autowired
     private MessageSource messageSource;
-    private static HashMap<String, Locale> mapLocal = new HashMap<>();
-    private Locale defaultLocal =  new Locale("vi", "VN");
-    static{
-        mapLocal.put("vi", new Locale("vi", "VN"));
-        mapLocal.put("en", Locale.ENGLISH);
+
+    private static final Map<String, Locale> mapLocal = Map.of(
+            "vi", new Locale("vi", "VN"),
+            "en", Locale.ENGLISH
+    );
+
+    private static final Locale defaultLocale = new Locale("vi", "VN");
+
+    // ✅ ThreadLocal để lưu locale riêng cho từng request
+    private static final ThreadLocal<Locale> localeHolder = ThreadLocal.withInitial(() -> defaultLocale);
+
+    public void setLocale(String language) {
+        Locale newLocale = mapLocal.getOrDefault(language, defaultLocale);
+        localeHolder.set(newLocale);
     }
-    private Locale locale =  new Locale("vi", "VN"); // Ngôn ngữ mặc định
+
+    public Locale getLocale() {
+        return localeHolder.get();
+    }
 
     public String getMessage(String key) {
-        return messageSource.getMessage(key, null, locale);
+        return messageSource.getMessage(key, null, getLocale());
     }
 
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
-    public void setLocale(String language){
-        Locale newLocale = mapLocal.get(language);
-        this.locale = (newLocale != null)?newLocale:defaultLocal;
-    }
-    public Locale getLocale() {
-        return locale;
+    // ✅ Xóa locale sau khi xử lý xong request
+    public void clear() {
+        localeHolder.remove();
     }
 }

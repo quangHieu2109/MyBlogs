@@ -19,16 +19,24 @@ public class LanguageFilter implements Filter {
 
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        String logRequest = ("URI: '" + httpRequest.getRequestURI()+"' Method: "+ httpRequest.getMethod()) ;
 
-       String acceptLanguage = httpRequest.getHeader("Accept-Language");
+        String acceptLanguage = httpRequest.getHeader("Accept-Language");
+        acceptLanguage = acceptLanguage != null ? acceptLanguage : "";
         MessageProvider.setLocale(acceptLanguage);
 
-        chain.doFilter(request, response);
-        logRequest+=(" Response status: " + httpResponse.getStatus());
-        System.out.println(logRequest);
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            MessageProvider.clear(); // ✅ Xóa locale sau khi xử lý xong
+        }
+
+        log.info("URI: '{}' Method: {} Response status: {}",
+                httpRequest.getRequestURI(), httpRequest.getMethod(), httpResponse.getStatus());
     }
+
 }

@@ -1,8 +1,7 @@
 package github.quanghieu2109.myblogs.controller;
 
-import github.quanghieu2109.myblogs.dto.response.request.UserCreateRequest;
-import github.quanghieu2109.myblogs.dto.response.response.ApiResponse;
-import github.quanghieu2109.myblogs.entity.User;
+import github.quanghieu2109.myblogs.dto.request.UserCreateRequest;
+import github.quanghieu2109.myblogs.dto.response.ApiResponse;
 import github.quanghieu2109.myblogs.repository.UsersRepository;
 import github.quanghieu2109.myblogs.service.UserSevice;
 import jakarta.validation.Valid;

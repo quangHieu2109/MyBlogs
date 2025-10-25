@@ -1,7 +1,7 @@
 package github.quanghieu2109.myblogs.controller;
 
-import github.quanghieu2109.myblogs.dto.response.request.LoginRequest;
-import github.quanghieu2109.myblogs.dto.response.response.ApiResponse;
+import github.quanghieu2109.myblogs.dto.request.LoginRequest;
+import github.quanghieu2109.myblogs.dto.response.ApiResponse;
 import github.quanghieu2109.myblogs.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

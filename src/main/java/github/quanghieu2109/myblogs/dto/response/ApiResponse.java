@@ -1,4 +1,4 @@
-package github.quanghieu2109.myblogs.dto.response.response;
+package github.quanghieu2109.myblogs.dto.response;
 
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -24,5 +24,9 @@ public class ApiResponse<T> {
 
     public ApiResponse(T data) {
         this.data = data;
+    }
+    public ApiResponse(int code, T data) {
+        this.data = data;
+        this.code = code;
     }
 }

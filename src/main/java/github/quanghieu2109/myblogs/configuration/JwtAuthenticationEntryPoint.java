@@ -4,14 +4,12 @@ package github.quanghieu2109.myblogs.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import github.quanghieu2109.myblogs.component.MessageProvider;
-import github.quanghieu2109.myblogs.dto.response.response.ApiResponse;
+import github.quanghieu2109.myblogs.dto.response.ApiResponse;
 import github.quanghieu2109.myblogs.exception.ErrorCode;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

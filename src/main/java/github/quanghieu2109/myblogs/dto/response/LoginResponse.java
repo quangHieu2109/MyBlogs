@@ -1,4 +1,4 @@
-package github.quanghieu2109.myblogs.dto.response.response;
+package github.quanghieu2109.myblogs.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

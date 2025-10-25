@@ -6,9 +6,9 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import github.quanghieu2109.myblogs.component.MessageProvider;
-import github.quanghieu2109.myblogs.dto.response.response.ApiResponse;
-import github.quanghieu2109.myblogs.dto.response.request.LoginRequest;
-import github.quanghieu2109.myblogs.dto.response.response.LoginResponse;
+import github.quanghieu2109.myblogs.dto.response.ApiResponse;
+import github.quanghieu2109.myblogs.dto.request.LoginRequest;
+import github.quanghieu2109.myblogs.dto.response.LoginResponse;
 import github.quanghieu2109.myblogs.entity.LogoutToken;
 import github.quanghieu2109.myblogs.entity.RefreshToken;
 import github.quanghieu2109.myblogs.entity.User;
@@ -105,14 +105,21 @@ public class AuthenticationService {
         try {
             return getClaimsSet(token).getLongClaim("userId");
         } catch (Exception e) {
-
+            //Parse exception
+            throw new AppException(messageProvider, ErrorCode.SERVER_ERROR);
+        }
+    }
+    public long getUserId() {
+        try {
+            return getClaimsSet(getCurrentToken()).getLongClaim("userId");
+        } catch (Exception e) {
+            //Parse exception
             throw new AppException(messageProvider, ErrorCode.SERVER_ERROR);
         }
     }
 
     public boolean verifyToken(String token) {
         try {
-//            token = token.replace("Bearer ", "");
             var claimsSet = getClaimsSet(token);
             //check expirationTime
             if (claimsSet.getExpirationTime().before(new Date(Instant.now().toEpochMilli()))) {
@@ -145,11 +152,11 @@ public class AuthenticationService {
             throw new AppException(messageProvider, ErrorCode.ACCESS_TOKEN_INVALID);
         }
     }
-    public static String getCurrentToken() {
+    public String getCurrentToken() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.getCredentials() instanceof String) {
-            return (String) auth.getCredentials();
+        if (auth == null || !(auth.getCredentials() instanceof String)) {
+            throw new AppException(messageProvider, ErrorCode.TOKEN_INVALID);
         }
-        return null;
+        return (String) auth.getCredentials();
     }
 }
