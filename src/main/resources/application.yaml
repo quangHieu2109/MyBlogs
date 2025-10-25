@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  messages:
+    basename: messages_vi
+    encoding: UTF-8
+  datasource:
+    url: "jdbc:mysql://localhost:3306/my-blogs"
+    username: root
+    password:
+  #    T? t?o table
+  jpa:
+    hibernate:
+      ddl-auto: update
+  #    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: fitstore567@gmail.com
+    password: cgkf kchb iaxe egwh
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+jwt:
+  signerKey: "NL8FWNjikoVGaAOLuLfULIhWVIB8GFYqFzP5wSBFwbmFKI749VKfrwOJ5TwMdinN"
+  valid-duration: 7200 #second
+  refreshable-duration: 604800 #second <=> 7 days
+  password-endpoint : "^/%$^(&*!@)>?||+/^"
+file:
+  upload-dir: "/image"
+cloudinary:
+  cloud:
+    name: ddcg9fmxf
+  upload_preset: qHiu-repo
+  aip:
+    key: 918256652129419
+    secret: LIADipC0kUkkxV5x6xNS2JZ2dcI
+user:
+  default:
+    avt: http://res.cloudinary.com/ddcg9fmxf/image/upload/v1751618073/k0giwr3jjacjacnxjcv5.jpg
+    role: USER
+    gender: Unknown
